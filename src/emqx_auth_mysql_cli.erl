@@ -62,7 +62,9 @@ connect(Options) ->
     end.
 
 query(Sql, Params, ClientInfo) ->
-    ecpool:with_client(?APP, fun(C) -> mysql:query(C, Sql, replvar(Params, ClientInfo)) end).
+    ecpool:with_client(?APP, fun(C) -> ecql:query(C, Sql, replvar(Params, ClientInfo)) end).
+
+% mysql:query(C, Sql, replvar(Params, ClientInfo)) end).
 
 replvar(Params, ClientInfo) ->
     replvar(Params, ClientInfo, []).
