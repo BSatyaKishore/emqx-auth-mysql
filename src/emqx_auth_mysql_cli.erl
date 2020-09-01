@@ -46,8 +46,10 @@ parse_query(Sql) ->
 %% MySQL Connect/Query
 %%--------------------------------------------------------------------
 
+
 connect(Options) ->
-    case mysql:start_link(Options) of
+    CassNodes = [{"18.181.177.212", 9042}],
+    case ecql:connect([{nodes, CassNodes}]) of
         {ok, Pid} -> {ok, Pid};
         ignore -> {error, ignore};
         {error, Reason = {{_, {error, econnrefused}}, _}} ->
